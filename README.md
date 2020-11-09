@@ -43,7 +43,7 @@ Usage
                         0: no colors
                         1: only color for addresses
                         2: 1 + color for 00 (default if terminal supports color)
-                        3: multicolor by FrankSansC
+                        3: [multicolor by FrankSansC](https://github.com/FrankSansC/hexcurse/commit/74b7b16fa0c69598128a4002b4df604f8ad658b0)
 
 #### Keyboard shortcuts
 
