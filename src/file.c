@@ -101,18 +101,18 @@ void print_usage()
     printf("hexcurse, version %s by James Stephenson and Lonny Gomes\n",ver);
     printf("\nusage: hexcurse [-?|help] [-a] [-e] [-t] [-r rnum] [-o outputfile] ");
     printf("[[-i] infile] [-c colorlevel]\n\n");
-    printf("    -a\t\tOutput addresses in decimal format initially\n");
-    printf("    -e\t\tOutput characters in EBCDIC format rather than ASCII\n"); 
-    printf("    -t\tKeep colors defined by terminal\n");
-    printf("    -r rnum\tResize the display to \"rnum\" bytes wide\n");
-    printf("    -o outfile\tWrite output to outfile by default\n"); 
-    printf("    -? | -help\tDisplay usage and version of hexcurse program\n");
-    printf("    [-i] infile\tRead from data from infile (-i required if not last argument)\n\n");
-    printf("    -c colorlevel Set the color level\n");
-    printf("    \t\t    0: no colors\n");
-    printf("    \t\t    1: only color for addresses\n");
-    printf("    \t\t    2: 1 + color for 00 (default if terminal supports color)\n");
-    printf("    \t\t    3: multicolor by FrankSansC\n\n");
+    printf("    -a\t\t\tOutput addresses in decimal format initially\n");
+    printf("    -e\t\t\tOutput characters in EBCDIC format rather than ASCII\n");
+    printf("    -t\t\t\tKeep colors defined by terminal\n");
+    printf("    -r rnum\t\tResize the display to \"rnum\" bytes wide\n");
+    printf("    -o outfile\t\tWrite output to outfile by default\n");
+    printf("    -? | -help\t\tDisplay usage and version of hexcurse program\n");
+    printf("    [-i] infile\t\tRead from data from infile (-i required if not last argument)\n");
+    printf("    -c colorlevel\tSet the color level\n");
+    printf("    \t\t\t\t0: no colors\n");
+    printf("    \t\t\t\t1: only color for addresses\n");
+    printf("    \t\t\t\t2: 1 + color for 00 (default if terminal supports color)\n");
+    printf("    \t\t\t\t3: multicolor by FrankSansC\n\n");
 }
 
 /*******************************************************\
