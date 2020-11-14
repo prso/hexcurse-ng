@@ -38,6 +38,7 @@ bool 	printHex;					/* address format     */
 bool    USE_EBCDIC;
 bool    TERM_COLORS;
 bool    IN_HELP;					/* if help displayed  */
+bool    saved = TRUE;
 int     hex_win_width,
         ascii_win_width,
         hex_outline_width,
