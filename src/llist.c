@@ -60,7 +60,7 @@ hexList *insertItem(hexList *head, off_t loc, int val)
     }
     newItem  = llalloc();                  /* allocate space        */
     if (prev == NULL) newHead = newItem;   /* new head of list      */
-    else prev->next = newItem;             /* or point previous     */
+    else prev->next = newItem;             /* or point to previous  */
     newItem->loc = loc;                    /* store the location    */
     newItem->val = val;                    /* store the value       */
     newItem->next = curr;                  /* point next to current */

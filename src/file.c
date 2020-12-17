@@ -100,7 +100,7 @@ off_t maxLoc(FILE *fp)
 }
 
 /*******************************************************\
- * Description: enters o exits from modified mode:     *
+ * Description: enters or exits from modified mode:    *
  *      set or reset saved, and write or restore       *
  *      mode indicator (*) at top of hex window        *
 \*******************************************************/
