@@ -35,10 +35,10 @@ void outline(FILE *fp, off_t linenum)
 		tmpHead = tmpHead->next;				/* advance temp head  */
 
     for (i = 0; i < BASE; i++) 
-	{
+    {
 		while (tmpHead != NULL && (tmpHead->loc < (locbase + i)))
 			tmpHead = tmpHead->next;
-		
+
 		if (tmpHead != NULL && (tmpHead->loc == (locbase + i)))
 		{										/*store val from llist*/
 			tmp[i] = tmpHead->val;
@@ -74,17 +74,18 @@ void outline(FILE *fp, off_t linenum)
 			wattron(windows->ascii, A_BOLD);
 			wattron(windows->hex, A_BOLD);
 		}
-        byte_color_on(locbase + i, c);
+		byte_color_on(locbase + i, c);
 		wprintw(windows->hex, "%02X ", c);		/* print out hex char */
 		if (USE_EBCDIC)
 			wprintw(windows->ascii, "%c", EBCDIC[c]);/* print EBCDIC char */
-		else									/* print ASCII  char */
-            wprintw(windows->ascii, (isprint(c)) ? "%c":".", c);
-        byte_color_off(locbase + i, c);
-        if (bold[i]) {
-            wattroff(windows->ascii, A_BOLD);
-            wattroff(windows->hex, A_BOLD);
-        }
+		else						/* print ASCII  char */
+			wprintw(windows->ascii, (isprint(c)) ? "%c":".", c);
+		byte_color_off(locbase + i, c);
+		if (bold[i])
+		{
+			wattroff(windows->ascii, A_BOLD);
+			wattroff(windows->hex, A_BOLD);
+		}
     }
 }
 
