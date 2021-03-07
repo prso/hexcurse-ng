@@ -29,21 +29,22 @@ void outline(FILE *fp, off_t linenum)
     int i, c, tmp[BASE];					/* holds char values  */
     bool bold[BASE];
     hexList *tmpHead = head;					/* tmp linklist head  */
-    off_t locbase = linenum * BASE;
+    off_t locbase = linenum * BASE, locbasei;
 
     while (tmpHead != NULL && tmpHead->loc < locbase)
 		tmpHead = tmpHead->next;				/* advance temp head  */
 
     for (i = 0; i < BASE; i++) 
     {
-		while (tmpHead != NULL && (tmpHead->loc < (locbase + i)))
+		locbasei = locbase + i;
+		while (tmpHead != NULL && (tmpHead->loc < locbasei))
 			tmpHead = tmpHead->next;
 
-		if (tmpHead != NULL && (tmpHead->loc == (locbase + i)))
+		if (tmpHead != NULL && (tmpHead->loc == locbasei))
 		{										/*store val from llist*/
 			tmp[i] = tmpHead->val;
 			tmpHead = tmpHead->next;
-			if (tmpHead != NULL && tmpHead->loc == (locbase + i))
+			if (tmpHead != NULL && tmpHead->loc == locbasei)
 			     bold[i] = TRUE;       /* if there is at least 2 values set bold */
 			else bold[i] = FALSE;
 		}
@@ -67,6 +68,7 @@ void outline(FILE *fp, off_t linenum)
 
     for (i = 0; i < BASE && (c = getc(fp)) != EOF; i++)
     {
+		locbasei = locbase + i;
 		if (tmp[i] != -1) 						/* while not EOF      */
 			c = tmp[i];							/* store val in c     */
 		if (bold[i])
@@ -74,13 +76,13 @@ void outline(FILE *fp, off_t linenum)
 			wattron(windows->ascii, A_BOLD);
 			wattron(windows->hex, A_BOLD);
 		}
-		byte_color_on(locbase + i, c);
+		byte_color_on(locbasei, c);
 		wprintw(windows->hex, "%02X ", c);		/* print out hex char */
 		if (USE_EBCDIC)
 			wprintw(windows->ascii, "%c", EBCDIC[c]);/* print EBCDIC char */
 		else						/* print ASCII  char */
 			wprintw(windows->ascii, (isprint(c)) ? "%c":".", c);
-		byte_color_off(locbase + i, c);
+		byte_color_off(locbasei, c);
 		if (bold[i])
 		{
 			wattroff(windows->ascii, A_BOLD);
