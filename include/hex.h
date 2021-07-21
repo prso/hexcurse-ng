@@ -123,6 +123,7 @@ extern bool saved;
 #define KEY_TAB 		9			/* value for the tab key      */
 #define NODEF           0  /* value for not defined characters in ASCII_to_EBCDIC */
 #define SAVEPOINT      -1
+#define FILEBUFF    16384			/* buffer size to copy file */
 
 #define AlphabetSize (UCHAR_MAX +1)		/* for portability            */
 
