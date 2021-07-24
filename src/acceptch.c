@@ -35,7 +35,7 @@ int wacceptch(WINS *win, off_t len)
     
     off_t count;
     int  col = 0, val, tmpval, 	    			/* counters, etc.     */   
-         ch[17],					/* holds search string*/
+         ch[81],					/* holds search string*/
 	 eol = (BASE * 3) - 1,				/* end of line pos    */
 	 lastRow = 0, lastCol = 0,			/* last row/col coords*/
 	 curVal = 0,	        			/* vals @ cursor locs */
@@ -49,6 +49,8 @@ int wacceptch(WINS *win, off_t len)
 
     char *gotoLocStr,					/* convert to gotoLoc */
          *temp,
+         *searchhex,
+         *searchascii,
     	 *tmpstr,					/* tmp str 4 inputLine*/
 	 SearchStr[13];
 
@@ -64,8 +66,9 @@ int wacceptch(WINS *win, off_t len)
     bool shouldExit = false;
     bool savedpoint = TRUE;
 
-    stack = NULL;				/* init the stack     */
-    temp = (char *)calloc(81, sizeof(char));
+    stack = NULL;
+    searchhex = (char *)calloc(81, sizeof(char));
+    searchascii = (char *)calloc(81, sizeof(char));
 
     if (fpIN)						/* if file opened then*/
     {							/* highlight 0,0 loc  */
@@ -480,7 +483,8 @@ int wacceptch(WINS *win, off_t len)
                     wrefresh(win->hex_outline);
                     break;
                 }
- 
+
+		temp = editHex ? searchhex : searchascii;
 
 		if (temp != NULL)
 		{
@@ -556,24 +560,31 @@ int wacceptch(WINS *win, off_t len)
 		if ((count % 2 > 0) && (editHex))	/* add last byte on   */
 			    ch[(count + 1) / 2] = tmp;
 
+		gotoLoc = -1;
 		if (val != -1)				/* if val checks out  */
 							/* search for it      */
-		    val = hexSearch(fpIN, ch, cursorLoc(currentLine, col,
-			  editHex, BASE), (editHex) ? ((count+1)/2) : count);
+		    gotoLoc = hexSearchBM(win->hex_outline, fpIN, ch, (off_t) cursorLoc(currentLine, col,
+			      editHex, BASE), (int) (editHex) ? ((count+1)/2) : count);
 
-		if (val == -1) 				/* if nothing came up */
+		if (gotoLoc == -1) 				/* if nothing came up */
 		{
 		    popupWin("Value not found!", -1);
                     restoreBorder(win);			/* restore border     */
 		    wrefresh(win->hex_outline);
 		}
-		else 
+		else if (gotoLoc == -2)
+		{
+		    popupWin("Search canceled!", -1);
+                    restoreBorder(win);			/* restore border     */
+		    wrefresh(win->hex_outline);
+		}
+		else
 		{
                     getyx(Winds, row, col);
 							/* goto found loc     */
                     currentLine = gotoLine(fpIN,
                                         cursorLoc(currentLine,col,editHex,BASE),
-                                           val, maxlines, Winds);
+                                           gotoLoc, maxlines, Winds);
 
 		}
 		break;
@@ -784,7 +795,8 @@ int wacceptch(WINS *win, off_t len)
 	    printDebug(head, -1);
 	    break;
 #endif
-	}
+
+	} // switch
 
 	getyx(Winds, row, col);				/* get cur row/col    */
 	if (fpIN)
@@ -861,7 +873,8 @@ int wacceptch(WINS *win, off_t len)
 	doupdate();					/* update visual      */
     }
 
-    free(temp);
+    free(searchhex);
+    free(searchascii);
     while (stack != NULL)
 	popStack(&stack);
     
