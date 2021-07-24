@@ -140,7 +140,7 @@ FILE *fpIN;		        		/* global file ptr           */
 /* acceptch.c */
 int wacceptch(WINS *windows, off_t len);
 void restoreBorder(WINS *win);
-char *inputLine(WINDOW *win, int line, int col);
+char *inputLine(WINDOW *win, int line, int col, bool allow_space);
 
 /* file.c */
 void outline(FILE *fp, off_t linenum);

@@ -511,7 +511,7 @@ int wacceptch(WINS *win, off_t len)
 		/* the third parameter positions the cursor in the correct loc*/
 		tmpstr = inputLine(win->hex_outline, LINES - 1, 
 			 ((editHex) ? 21 : 23) + 
-			 ((strlen(temp) > 10) ? 10 : strlen(temp)));
+			 ((strlen(temp) > 10) ? 10 : strlen(temp)), !editHex);
 		noecho();
 
 		wmove(win->hex_outline, LINES - 1, 1);
@@ -624,7 +624,7 @@ int wacceptch(WINS *win, off_t len)
 
 		echo();					/* echo chars         */
 		gotoLocStr = inputLine(win->hex_outline, LINES - 1, 
-			              (printHex) ? 21 : 25);
+			              (printHex) ? 21 : 25, FALSE);
 		if (gotoLocStr[0] == 27)		/* escape was hit     */
 		{					/* restore & return   */
 		    restoreBorder(win);
@@ -899,12 +899,14 @@ void restoreBorder(WINS *win)
  * Description:  gets a line of input from user		*
  * Returns:	 received string			*
 \********************************************************/
-char *inputLine(WINDOW *win, int line, int col)
+char *inputLine(WINDOW *win, int line, int col, bool allow_space)
 {
     int x;
-    unsigned long int c;
+    unsigned long int c, first_printable;
     char *ch;
     int allocated = 81;
+
+    first_printable = allow_space ? 31 : 32;
 
     noecho();
 
@@ -928,7 +930,7 @@ char *inputLine(WINDOW *win, int line, int col)
             ch[x] = '\0';
             x -= 2;					/* modify ptr         */
         }
-        else if (c > 32 && c < 127) 			/* if printable char  */
+        else if (c > first_printable && c < 127) 			/* if printable char  */
 	{
             ch[x] = c;
             waddch(win, ch[x]);

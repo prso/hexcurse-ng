@@ -186,7 +186,7 @@ int openfile(WINS *win)
 	if (!fpINfilename)
         fpINfilename = (char *) malloc(81);             /* allocate if NULL   */
 
-    ch = inputLine(win->hex_outline, LINES - 1, 21);	/* get filename       */
+    ch = inputLine(win->hex_outline, LINES - 1, 21, TRUE);	/* get filename       */
 
     if (ch[0] == 27)									/* if escape was hit  */
     {
@@ -246,7 +246,7 @@ int savefile(WINS *win)
 
     wrefresh(win->hex_outline);                         /* refresh window     */
 
-    ch = inputLine(win->hex_outline, LINES - 1, 21);	/* get filename       */
+    ch = inputLine(win->hex_outline, LINES - 1, 21, TRUE);	/* get filename       */
 
     if (ch[0] != 27)						/*if escape wasn't hit*/
     {
