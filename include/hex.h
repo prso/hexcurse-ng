@@ -133,7 +133,7 @@ extern bool saved;
 #define max(a,b) ((a) >(b) ? (a) : (b))
 #endif
 
-FILE *fpIN;		        		/* global file ptr           */
+extern FILE *fpIN;	        		/* global file ptr           */
 
 /* function prototypes */
 
