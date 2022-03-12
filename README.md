@@ -1,11 +1,11 @@
-hexcurse v1.60.0
+hexcurse
 =====================================
-[![Build Status](https://travis-ci.org/LonnyGomes/hexcurse.svg?branch=master)](https://travis-ci.org/LonnyGomes/hexcurse)
 
-![hexcurse screenshot](http://lonnygomes.github.io/screenshots/hexcurse2-ss.jpg)
+Project: https://github.com/prso/hexcurse
 
-Bug reports: https://github.com/LonnyGomes/hexcurse/issues
+![hexcurse screenshot](screenshots/hexcurse-screenshot.png)
 
+This is a fork from [LonnyGomes/hexcurse](https://github.com/LonnyGomes/hexcurse) with fixes and improvements.
 
 Description
 -----------
