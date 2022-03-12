@@ -6,26 +6,26 @@ hexcurse \- an ncurses-based hex editor
 .SH SYNOPSIS
 .B hexcurse
 [
-.B \-? " | " \-help
+.B \-? | \-help
 ] [
 .B \-a
 ] [
+.B \-c
+.I colorlevel
+] [
 .B \-e
 ] [
-.B \-t
+.B \-o
+.I outputfile
 ] [
 .B \-r
 .I rnum
 ] [
-.B \-o
-.I outputfile
+.B \-t
 ] [ [
 .BR \-i
 ]
 .I inputfile
-] [
-.BR \-c
-I. colorlevel
 ]
 .SH DESCRIPTION
 .B hexcurse
@@ -38,32 +38,7 @@ Prints out the command usage info
 .B -a
 Specifies the addresses to be output in decimal format initially.
 .TP 15
-.B -e
-Specifies the characters to be output in EBCDIC format rather than ASCII.
-.TP 15
-.B -t
-Specifies the colors set by the terminal should be kept (all background and normal foreground). Set this if you see ugly colors or don't see some colors at all.
-.TP 15
-.BI \-r \ rnum
-Specifies the number of characters per line that the hexeditor should output.  If
-.I rnum
-is either less than 1 or greater than the columns of the current terminal,
-.B hexcurse
-will fill the terminal width, just as if the
-.B \-r
-was not specified.
-.TP 15
-.BI \-o \ outputfile
-Specifies the output file to be written to by default.
-.TP 15
-.BI [ \-i ] \ inputfile
-Specifies the input file to be read in.
-.B \-i
-is not needed if
-.I inputfile
-is the last argument on the line.
-.TP 15
-.BI [ \-c ] \ colorlevel
+.BI -c \ colorlevel
 Specifies the color level.
 .RS 18
 0: no colors
@@ -77,6 +52,31 @@ Specifies the color level.
 .RS 18
 3: multicolor by FrankSansC
 .RE
+.TP 15
+.B -e
+Specifies the characters to be output in EBCDIC format rather than ASCII.
+.TP 15
+.BI \-o \ outputfile
+Specifies the output file to be written to by default.
+.TP 15
+.BI \-r \ rnum
+Specifies the number of characters per line that the hexeditor should output.  If
+.I rnum
+is either less than 1 or greater than the columns of the current terminal,
+.B hexcurse
+will fill the terminal width, just as if the
+.B \-r
+was not specified.
+.TP 15
+.B -t
+Specifies the colors set by the terminal should be kept (all background and normal foreground). Set this if you see ugly colors or don't see some colors at all.
+.TP 15
+.BI [\ \-i\ ] \ inputfile
+Specifies the input file to be read in.
+.B \-i
+is not needed if
+.I inputfile
+is the last argument on the line.
 .SH INTERACTIVE OPTIONS
 .TP 15
 .B F1 | ctrl+?
