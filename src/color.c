@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2015 Javier Escalada Gómez
+ * Copyright (C) 2020,2021 prso at github, fixes and improvements
  */
 
 #include "hex.h"
