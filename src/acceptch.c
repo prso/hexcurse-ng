@@ -576,6 +576,13 @@ int wacceptch(WINS *win, off_t len)
 							/* search for it      */
 		    gotoLoc = hexSearchBM(win->hex_outline, fpIN, ch, (off_t) cursorLoc(currentLine, col,
 			      editHex, BASE), (int) (editHex) ? ((count+1)/2) : count);
+		else
+		{
+		    popupWin("Value is not hex!", -1);
+		    restoreBorder(win);			/* restore border     */
+		    wrefresh(win->hex_outline);
+		    break;
+		}
 
 		if (gotoLoc == -1) 				/* if nothing came up */
 		{
