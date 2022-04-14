@@ -40,6 +40,7 @@ char    EBCDIC[256],
 bool 	printHex;					/* address format     */
 bool    USE_EBCDIC;
 bool    TERM_COLORS;
+bool    FNUMBERS;
 bool    IN_HELP;					/* if help displayed  */
 bool    saved = TRUE;
 int     hex_win_width,
@@ -101,6 +102,7 @@ int main(int argc, char *argv[])			/* main program       */
     printHex = TRUE;							/* address format     */
     USE_EBCDIC = FALSE;							/*use ascii by default*/
     TERM_COLORS = FALSE;                     /*don't use term defined colors by default */
+    FNUMBERS = FALSE;     /* keep old behaviour without function key numbers by default */
 
 							/* get cmd line args  */
     len = parseArgs(argc, argv);
@@ -119,7 +121,6 @@ int main(int argc, char *argv[])			/* main program       */
 	exit(-1);
     }
     
-    slk_set(6, (printHex) ? "Hex Addr":"Dec Addr", 1);
     init_fkeys();					/* define menu bar    */
     
 
@@ -205,7 +206,7 @@ off_t parseArgs(int argc, char *argv[])
     int val;						/* counters, etc.     */
 
 							/* get args           */
-    while ((val = hgetopt(argc, argv, "c:ai:o:r:et")) != -1)
+    while ((val = hgetopt(argc, argv, "c:ai:o:r:etf")) != -1)
     {
 	switch (val)					/* test args          */
         {
@@ -236,6 +237,9 @@ off_t parseArgs(int argc, char *argv[])
 
             case 't':   TERM_COLORS=TRUE;       /* keep term defined colors */
                         break;                  /* if defined and not set may look bad */
+
+            case 'f':   FNUMBERS=TRUE;          /* show numbers in labels for function keys */
+                        break;
 							/* help/invalid args  */
 							/* help/invalid args  */
             case '?':	print_usage();			/* output help        */

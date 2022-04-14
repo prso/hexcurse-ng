@@ -143,14 +143,28 @@ void screen_exit(int exit_val)
 \******************************************************/ 
 void init_fkeys()
 {
-    slk_set(1, "Help",		1);			/* init menu tabs     */
-    slk_set(2, "Save",		1);
-    slk_set(3, "Open",	 	1);
-    slk_set(4, "Goto",		1);
-    slk_set(5, "Find", 		1);
-
-    slk_set(7, "Hex Edit",	1);
-    slk_set(8, "Quit",		1);
+    if (FNUMBERS)
+    {
+        slk_set(1, "1:Help", 1);			/* init menu tabs     */
+        slk_set(2, "2:Save", 1);
+        slk_set(3, "3:Open", 1);
+        slk_set(4, "4:Goto", 1);
+        slk_set(5, "5:Find", 1);
+        slk_set(6, (printHex) ? "6:Hex Ad":"6:Dec Ad", 1);
+        slk_set(7, "7:Hex Ed", 1);
+        slk_set(8, "8:Quit", 1);
+    }
+    else
+    {
+        slk_set(1, "Help", 1);			/* init menu tabs     */
+        slk_set(2, "Save", 1);
+        slk_set(3, "Open", 1);
+        slk_set(4, "Goto", 1);
+        slk_set(5, "Find", 1);
+        slk_set(6, (printHex) ? "Hex Addr":"Dec Addr", 1);
+        slk_set(7, "Hex Edit", 1);
+        slk_set(8, "Quit", 1);
+    }
     slk_set(9, "Quit",		1);
     slk_noutrefresh();					/* refresh the screen */
 }

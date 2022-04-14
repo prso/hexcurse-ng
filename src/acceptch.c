@@ -628,7 +628,10 @@ int wacceptch(WINS *win, off_t len)
 			       MIN_ADDR_LENGTH, (intmax_t)((count + row) * BASE));
 
 							/* update menu button */
-		slk_set(6, (printHex) ? "Hex Addr":"Dec Addr", 1);
+		if (FNUMBERS)
+		    slk_set(6, (printHex) ? "6:Hex Ad":"6:Dec Ad", 1);
+		else
+		    slk_set(6, (printHex) ? "Hex Addr":"Dec Addr", 1);
 		slk_noutrefresh();			/* refresh            */
 		wnoutrefresh(win->address);
 		break;
@@ -696,14 +699,14 @@ int wacceptch(WINS *win, off_t len)
 		    Winds = win->ascii;			/* change to ascii    */
 		    eol = BASE;
 	 	    wmove(Winds, row, (col/3));
-		    slk_set(7, "Asc Edit", 1);
+		    slk_set(7, FNUMBERS ? "7:Asc Ed":"Asc Edit", 1);
 		}
 		else					/* already in ascii   */
 		{
 		    Winds = win->hex;			/* change to hex win  */
 		    eol = (BASE * 3) - 1;
 	 	    wmove(Winds, row, (col*3));	
-		    slk_set(7, "Hex Edit", 1);
+		    slk_set(7, FNUMBERS ? "7:Hex Ed":"Hex Edit", 1);
 		}
 
 		editHex = (!editHex);			/* change test val    */

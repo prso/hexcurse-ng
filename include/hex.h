@@ -102,6 +102,7 @@ extern char EBCDIC[256];
 extern int ASCII_to_EBCDIC[256];
 extern bool color_enabled;
 extern bool TERM_COLORS;
+extern bool FNUMBERS;
 extern int  color_level;
 extern bool saved;
 
