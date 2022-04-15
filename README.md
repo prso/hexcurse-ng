@@ -31,7 +31,7 @@ Installation
 Usage
 -----
 
-    usage: hexcurse [-?|help] [-a] [-c colorlevel] [-e] [-o outputfile] [-r rnum] [-t] [[-i] infile]
+    usage: hexcurse [-?|help] [-a] [-c colorlevel] [-e] [-f] [-o outputfile] [-r rnum] [-t] [[-i] infile]
 
         -? | -help    Display usage and version of hexcurse program
         -a            Output addresses in decimal format initially
@@ -41,6 +41,7 @@ Usage
                         2: 1 + color for 00 (default if terminal supports color)
                         3: multicolor by FrankSansC
         -e            Output characters in EBCDIC format rather than ASCII
+        -f            Show function key numbers in labels
         -o outfile    Write output to outfile by default
         -r rnum       Resize the display to "rnum" bytes wide
         -t            Keep colors defined by terminal

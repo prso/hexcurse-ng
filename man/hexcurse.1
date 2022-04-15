@@ -1,6 +1,6 @@
 .\" to process use the following command
 .\" groff -man -Tascii manpagename.1
-.TH HEXCURSE 1 "12 March 2022"
+.TH HEXCURSE 1 "15 April 2022"
 .SH NAME
 hexcurse \- an ncurses-based hex editor
 .SH SYNOPSIS
@@ -14,6 +14,8 @@ hexcurse \- an ncurses-based hex editor
 .I colorlevel
 ] [
 .B \-e
+] [
+.B \-f
 ] [
 .B \-o
 .I outputfile
@@ -55,6 +57,9 @@ Specifies the color level.
 .TP 15
 .B -e
 Specifies the characters to be output in EBCDIC format rather than ASCII.
+.TP 15
+.B -f
+Specifies that function key numbers will be shown along names in the labels.
 .TP 15
 .BI \-o \ outputfile
 Specifies the output file to be written to by default.

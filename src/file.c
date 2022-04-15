@@ -137,10 +137,11 @@ void print_usage()
     char *ver = HVERSION; 
 
     printf("hexcurse, version %s by James Stephenson and Lonny Gomes\n",ver);
-    printf("\nusage: hexcurse [-?|help] [-a] [-e] [-t] [-r rnum] [-o outputfile] ");
+    printf("\nusage: hexcurse [-?|help] [-a] [-e] [-f] [-t] [-r rnum] [-o outputfile] ");
     printf("[[-i] infile] [-c colorlevel]\n\n");
     printf("    -a\t\t\tOutput addresses in decimal format initially\n");
     printf("    -e\t\t\tOutput characters in EBCDIC format rather than ASCII\n");
+    printf("    -f\t\t\tShow function key numbers in labels\n");
     printf("    -t\t\t\tKeep colors defined by terminal\n");
     printf("    -r rnum\t\tResize the display to \"rnum\" bytes wide\n");
     printf("    -o outfile\t\tWrite output to outfile by default\n");
