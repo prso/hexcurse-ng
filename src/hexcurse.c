@@ -206,7 +206,7 @@ off_t parseArgs(int argc, char *argv[])
     int val;						/* counters, etc.     */
 
 							/* get args           */
-    while ((val = hgetopt(argc, argv, "c:ai:o:r:etf")) != -1)
+    while ((val = hgetopt(argc, argv, "c:ai:o:r:etf?h")) != -1)
     {
 	switch (val)					/* test args          */
         {
@@ -241,8 +241,8 @@ off_t parseArgs(int argc, char *argv[])
             case 'f':   FNUMBERS=TRUE;          /* show numbers in labels for function keys */
                         break;
 							/* help/invalid args  */
-							/* help/invalid args  */
-            case '?':	print_usage();			/* output help        */
+            case '?':
+            case 'h':	print_usage();			/* output help        */
                         if ((optopt == 'h') || (optopt == '?'))
                            exit(0);			/* exit               */
                         else				/* illegal option     */
