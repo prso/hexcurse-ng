@@ -165,7 +165,6 @@ void init_fkeys()
         slk_set(7, "Hex Edit", 1);
         slk_set(8, "Quit", 1);
     }
-    slk_set(9, "Quit",		1);
     slk_noutrefresh();					/* refresh the screen */
 }
 
