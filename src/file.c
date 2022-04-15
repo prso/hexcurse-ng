@@ -137,8 +137,8 @@ void print_usage()
     char *ver = HVERSION; 
 
     printf("hexcurse, version %s by James Stephenson and Lonny Gomes\n",ver);
-    printf("\nusage: hexcurse [-?|help] [-a] [-c colorlevel] [-e] [-f] [-o outputfile] ");
-    printf("[-r rnum] [-t] [[-i] infile]\n\n");
+    printf("usage: hexcurse [-?|help] [-a] [-c colorlevel] [-e] [-f] [-o outputfile] ");
+    printf("[-r rnum] [-t] [[-i] infile]\n");
     printf("    -? | -help\t\tDisplay usage and version of hexcurse program\n");
     printf("    -a\t\t\tOutput addresses in decimal format initially\n");
     printf("    -c colorlevel\tSet the color level\n");
