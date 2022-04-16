@@ -927,7 +927,7 @@ char *inputLine(WINDOW *win, int line, int col, bool allow_space)
     char *ch;
     int allocated = 81;
 
-    first_printable = allow_space ? 31 : 32;
+    first_printable = allow_space ? 32 : 33;
 
     noecho();
 
@@ -951,7 +951,7 @@ char *inputLine(WINDOW *win, int line, int col, bool allow_space)
             ch[x] = '\0';
             x -= 2;					/* modify ptr         */
         }
-        else if (c > first_printable && c < 127) 			/* if printable char  */
+        else if (c >= first_printable && c < 127) 			/* if printable char  */
 	{
             ch[x] = c;
             waddch(win, ch[x]);
