@@ -1,6 +1,6 @@
 /******************************************************************************\
  *  Copyright (C) 2001 writen by Jewfish and Armoth                           *
- *  Copyright (C) 2020,2021 prso at github, fixes and improvements            *
+ *  Copyright (C) 2020-2022 prso at github, fixes and improvements            *
  *									      *
  *  Description: this codes allows a user to view and edit the hexadecimal and*
  *		 and ascii values of a file.  The curses library is used to   *
