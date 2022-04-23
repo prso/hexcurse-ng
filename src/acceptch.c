@@ -168,6 +168,23 @@ int wacceptch(WINS *win, off_t len)
 		    if((row > MAXY) && (currentLine <= maxlines))
 		        winscroll(win, Winds, 1, currentLine);
 		}
+		else if (currentLine != maxlines)
+		{					/* move to EOF        */
+							/* scroll down...     */
+		    if (row >= MAXY)
+		        winscroll(win, Winds, 1, ++currentLine);
+		    else
+		    {
+		        currentLine++;
+		        row++;
+		    }
+							/* last column        */
+		    col = (editHex) ? 3 * ((len % BASE) - 1):(len % BASE) - 1;
+		    if (col < 0)
+		        col = (editHex) ? 3 * (BASE - 1) : BASE - 1;
+
+		    wmove(Winds, row, col);		/* move cursor        */
+		}
 		break;
 
 	case KEY_BACKSPACE:
