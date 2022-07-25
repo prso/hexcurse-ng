@@ -27,7 +27,8 @@
 \*******************************************************/
 void outline(FILE *fp, off_t linenum)
 {
-    int i, c, tmp[BASE];					/* holds char values  */
+    int i, c, tmp[BASE],					/* holds char values  */
+        clrstathex, clrstatascii;
     bool bold[BASE];
     hexList *tmpHead = head;					/* tmp linklist head  */
     off_t locbase = linenum * BASE, locbasei;
@@ -56,8 +57,8 @@ void outline(FILE *fp, off_t linenum)
 		}
     }
 
-    wclrtoeol(windows->hex);					/* clear lines        */
-    wclrtoeol(windows->ascii);
+    clrstathex = wclrtoeol(windows->hex);					/* clear lines        */
+    clrstatascii = wclrtoeol(windows->ascii);
 
     /*print line's address*/
     address_color_on((intmax_t)(locbase));
@@ -90,6 +91,14 @@ void outline(FILE *fp, off_t linenum)
 			wattroff(windows->hex, A_BOLD);
 		}
     }
+			/* workaround to a strange bug, in some cases */
+			/* wclrtoeol() doesn't work for the last line */
+    if (clrstathex==ERR || clrstatascii==ERR)
+		for (; i < BASE; i++)
+		{
+			wprintw(windows->hex, "   ");
+			wprintw(windows->ascii, " ");
+		}
 }
 
 /*******************************************************\
