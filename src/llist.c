@@ -148,7 +148,6 @@ int writeChanges()
     {							/* open the write file*/
 	if ( (fpOUT = fopen(fpOUTfilename, "w+")) )
 	{
-		fptmp = fpOUT;
 		rewind(fpIN);				/* set file loc to 0  */
 		buff = malloc(FILEBUFF);		/* allocate buffer */
 		while (!feof(fpIN))
@@ -164,7 +163,11 @@ int writeChanges()
 			}
 		}
 		free(buff);
-		rewind(fptmp);
+		if (!errfpOUT)
+		{
+			fptmp = fpOUT;
+			rewind(fptmp);
+		}
 		fclose(fpIN);
 		free(fpINfilename);
 		fpINfilename = strdup(fpOUTfilename);
