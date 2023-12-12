@@ -942,24 +942,18 @@ char *inputLine(WINDOW *win, int line, int col, bool allow_space)
     int x;
     unsigned long int c, first_printable;
     char *ch;
-    int allocated = 81;
+    int allocated = 80;
 
     first_printable = allow_space ? 32 : 33;
 
     noecho();
 
-    ch = (char *)malloc(allocated);				/* allocate space     */
+    ch = (char *)malloc(allocated+1);				/* allocate space     */
 
     wmove(win, line, col);
 
     for (x = 0; (c = wgetch(win)) != 10; x++) 
     {
-	if (x > 0 && x >= allocated)
-	{
-		ch = (char*)realloc(ch, x + 1);
-		allocated = x + 1;
-	}
-	
         wclrtoeol(win);					/* clear line         */
         if (c == '\b' || c == 127) 			/* get backspace      */
 	{
@@ -968,15 +962,20 @@ char *inputLine(WINDOW *win, int line, int col, bool allow_space)
             ch[x] = '\0';
             x -= 2;					/* modify ptr         */
         }
-        else if (c >= first_printable && c < 127) 			/* if printable char  */
-	{
-            ch[x] = c;
-            waddch(win, ch[x]);
-        }
 	else if (c == 27)				/* if the escape key  */
 	{   						/* is pressed, return */
 	    ch[0] = 27;					/* setting ch to 0xff */
 	    return ch;					
+	}
+	else if (x == allocated)
+	{
+	    x--;
+	    continue;
+	}
+	else if (c >= first_printable && c < 127) 			/* if printable char  */
+	{
+	    ch[x] = c;
+	    waddch(win, ch[x]);
 	}
         else 						/* if anything else   */
 	{
