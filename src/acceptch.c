@@ -1,6 +1,6 @@
 /******************************************************************************\
  *  Copyright (C) 2001, hexcurse is  writen by Jewfish and Armoth             *
- *  Copyright (C) 2020-2022 prso at github, fixes and improvements            *
+ *  Copyright (C) 2020-2023 prso at github, fixes and improvements            *
  *									      *
  *  This program is free software; you can redistribute it and/or modify      *
  *  it under the terms of the GNU General Public License as published by      *
