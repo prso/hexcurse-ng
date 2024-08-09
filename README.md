@@ -1,7 +1,7 @@
-hexcurse
+hexcurse-ng
 =====================================
 
-Project: https://github.com/prso/hexcurse
+Project: https://github.com/prso/hexcurse-ng
 
 ![hexcurse screenshot](screenshots/hexcurse-screenshot.png)
 
@@ -9,11 +9,16 @@ This is a fork from [LonnyGomes/hexcurse](https://github.com/LonnyGomes/hexcurse
 
 Description
 -----------
-Hexcurse is a curses-based hex editing utility that can open, edit, and save files, editing both the hexadecimal and decimal values.
+Hexcurse is a curses-based hex editing utility that can open, edit, and save
+files and block devices, editing both the hexadecimal and decimal values.
 
-It was written by [Lonny Gomes](https://twitter.com/lonnygomes) and [James Stephenson](https://plus.google.com/u/0/103174459258175070784/about) but we haven't maintained it for some time. We recently saw an old tarball of the code floating around the net and thought it would be good to start maintaining the codebase again.
+It was written by Lonny Gomes and James Stephenson but they haven't
+maintained it for some time.
 
-It currently supports searching, hex and decimal address output, jumping to specified locations in the file, "undo" capabilities, "bolded" modifications, EBCDIC mode, and quick keyboard shortcuts to commands.
+It currently supports fast searching, hex and decimal address output,
+jumping to specified locations in the file, "undo" capabilities, "bolded"
+modifications, colors, EBCDIC mode, and quick keyboard shortcuts to
+commands.
 
 
 Requirements
