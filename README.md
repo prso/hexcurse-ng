@@ -1,6 +1,8 @@
 hexcurse-ng
 =====================================
 
+**New release [v1.70.0](https://github.com/prso/hexcurse-ng/releases/tag/v1.70.0)**
+
 Project: https://github.com/prso/hexcurse-ng
 
 ![hexcurse screenshot](screenshots/hexcurse-screenshot.png)
