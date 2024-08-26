@@ -1,4 +1,19 @@
-Current version: hexcurse 1.60.0 (11.17.2015)
+Current version: hexcurse-ng 1.70.0 (2024-08-26)
+ * changed project name in this fork to hexcurse-ng
+ * fixed many bugs
+ * fixed typos
+ * fixed some indentation in the code
+ * improved man, help and README
+ * improved informative/error messages
+ * added selectable multicolor scheme, contributed by FrankSansC
+ * added saved/unsaved tracking
+ * added some optimizations
+ * improved search with Boyer-Moore algorithm by @samozrejmost
+ * added a new screenshot
+ * added an option to show function key numbers in their labels
+ * improved down key near to the end of file
+
+hexcurse 1.60.0 (11.17.2015)
  * changed version scheme to match semver standards
  * added cancel option when exiting, contributed by @NnerKao (#20)
  * used malloc() and free() instead of alloca(), contributed by @fornwall (#18)
