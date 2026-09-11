@@ -369,8 +369,8 @@ off_t hexSearchBM(WINDOW *w, FILE *fp, int pat[], off_t startfp, int patlen)
     int         delta1 [ ALPHABET_LEN ];
     int         *delta2 = (int *)malloc(patlen * sizeof(int));
 
-    char        *buf;           // circular buffer
-    char        *patt = (char *) malloc(patlen);
+    unsigned char *buf;         // circular buffer
+    unsigned char *patt = (unsigned char *) malloc(patlen);
 
     int         n;              // number of bytes read by fread()
     int         rem_bytes = 0;  // remaining bytes in the buffer
@@ -412,7 +412,7 @@ off_t hexSearchBM(WINDOW *w, FILE *fp, int pat[], off_t startfp, int patlen)
         pos2 = pos1 + (off_t) full_length;
 
         // apply changes by user, if any
-        updateBuf(head, buf, pos1, pos2);
+        updateBuf(head, (char *) buf, pos1, pos2);
 
         i = patlen - 1;
         while (i < full_length) {
@@ -427,7 +427,7 @@ off_t hexSearchBM(WINDOW *w, FILE *fp, int pat[], off_t startfp, int patlen)
                 goto end;
             }
 
-            m = max(delta1[(unsigned char) buf[i]], delta2[j]);
+            m = max(delta1[buf[i]], delta2[j]);
             i += m;
         }
 
