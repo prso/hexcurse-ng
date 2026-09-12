@@ -296,13 +296,23 @@ int savefile(WINS *win)
     return exitCode;
 }
 
-void make_delta1(int *delta1, int *pat, size_t patlen) {
-    size_t i;
-    for (i=0; i < ALPHABET_LEN; i++) {
-        delta1[i] = patlen;
+void make_delta1(int *delta1, const int *pat, size_t patlen) {
+    if (!delta1 || !pat || patlen == 0) {
+        return; 
     }
-    for (i=0; i < patlen-1; i++) {
-        delta1[pat[i]] = patlen-1 - i;
+
+    size_t i;
+    
+    /* Initialize delta1 safely */
+    for (i = 0; i < ALPHABET_LEN; i++) {
+        delta1[i] = (int)patlen;
+    }
+
+    /* Fill delta1 and ensuring pat[i]  */
+    for (i = 0; i < patlen - 1; i++) {
+        if (pat[i] >= 0 && pat[i] < ALPHABET_LEN) { 
+            delta1[pat[i]] = (int)(patlen - 1 - i);
+        }
     }
 }
 
@@ -331,23 +341,40 @@ size_t suffix_length(int *word, size_t wordlen, size_t pos) {
 }
 
 void make_delta2(int *delta2, int *pat, size_t patlen) {
-    size_t  p;
-    size_t  last_prefix_index = patlen-1;
+    if (!delta2 || !pat || patlen == 0) {
+        return;
+    }
 
-    // first loop
-    for (p=patlen-1; ;p--) {
-        if (is_prefix(pat, patlen, p+1)) {
-            last_prefix_index = p+1;
+    size_t p;
+    size_t last_prefix_index = patlen - 1;
+
+    // First loop 
+    for (p = patlen - 1; ; p--) {
+        if (is_prefix(pat, patlen, p + 1)) {
+            last_prefix_index = p + 1;
         }
-        delta2[p] = (int) (last_prefix_index + (patlen-1 - p));
+
+        if (p < patlen) {
+            delta2[p] = (int)(last_prefix_index + (patlen - 1 - p));
+        } else {
+            continue;
+        }
+
         if (p == 0) break;
     }
 
-    // second loop
-    for (p=0; p < patlen-1; p++) {
-        int slen = suffix_length(pat, patlen, p);
-        if (pat[p - slen] != pat[patlen-1 - slen]) {
-            delta2[patlen-1 - slen] = (int) (patlen-1 - p + slen);
+    // Second loop 
+    for (p = 0; p < patlen - 1; p++) {
+        size_t slen = suffix_length(pat, patlen, p);
+        if (slen <= p) {
+            if (pat[p - slen] != pat[patlen - 1 - slen]) {
+                size_t delta_index = patlen - 1 - slen;
+                if (delta_index < patlen) {
+                    delta2[delta_index] = (int)(patlen - 1 - p + slen);
+                } else {
+                    continue;
+                }
+            }
         }
     }
 }
@@ -367,10 +394,11 @@ off_t hexSearchBM(WINDOW *w, FILE *fp, int pat[], off_t startfp, int patlen)
     int         i, m = 1;
     int         j = patlen - 1;
     int         delta1 [ ALPHABET_LEN ];
-    int         *delta2 = (int *)malloc(patlen * sizeof(int));
+    int         *delta2 = (int *)malloc((size_t)patlen * sizeof(int));
 
-    char        *buf;           // circular buffer
-    char        *patt = (char *) malloc(patlen);
+
+    unsigned char *buf;           // circular buffer
+    unsigned char *patt = (unsigned char *) malloc((size_t)patlen);
 
     int         n;              // number of bytes read by fread()
     int         rem_bytes = 0;  // remaining bytes in the buffer
@@ -382,13 +410,13 @@ off_t hexSearchBM(WINDOW *w, FILE *fp, int pat[], off_t startfp, int patlen)
     off_t       pos_max = -1;   // EOF position
     off_t       rv = -1;        // return value: default = -1
 
-    if (posix_memalign((void **)&buf, getpagesize(), BUF_L) != 0)
+    if (posix_memalign((void **)&buf, (size_t)getpagesize(), BUF_L) != 0)
         return -1;
 
     if (! (delta2 && patt)) return -1;
 
-    make_delta1(delta1, pat, patlen);
-    make_delta2(delta2, pat, patlen);
+    make_delta1(delta1, pat, (size_t) patlen);
+    make_delta2(delta2, pat, (size_t) patlen);
     // converting int to (unsigned char) -> (unsigned char) is faster
     for (i = 0; i < patlen; i++) patt[i] = (unsigned char) pat[i];
 
@@ -406,13 +434,13 @@ off_t hexSearchBM(WINDOW *w, FILE *fp, int pat[], off_t startfp, int patlen)
     pos1 = pos2 = startfp;
 
     while (1) {
-        n = (int) fread(&buf[rem_bytes], 1, bytes_to_read, fp);
+        n = (int) fread(&buf[rem_bytes], 1, (size_t) bytes_to_read, fp);
         full_length = n + rem_bytes;
         if (n == 0 || full_length < patlen) break;
         pos2 = pos1 + (off_t) full_length;
 
         // apply changes by user, if any
-        updateBuf(head, buf, pos1, pos2);
+        updateBuf(head, (char *) buf, pos1, pos2);
 
         i = patlen - 1;
         while (i < full_length) {
@@ -427,7 +455,7 @@ off_t hexSearchBM(WINDOW *w, FILE *fp, int pat[], off_t startfp, int patlen)
                 goto end;
             }
 
-            m = max(delta1[(unsigned char) buf[i]], delta2[j]);
+            m = max(delta1[buf[i]], delta2[j]);
             i += m;
         }
 
@@ -435,7 +463,7 @@ off_t hexSearchBM(WINDOW *w, FILE *fp, int pat[], off_t startfp, int patlen)
         if (rem_bytes > full_length) rem_bytes = full_length;
 
         bytes_to_read = BUF_L - rem_bytes;
-        memmove(buf, &buf[full_length - rem_bytes], rem_bytes);
+        memmove(buf, &buf[full_length - rem_bytes], (size_t) rem_bytes);
         pos1 = pos2 - rem_bytes;
 
         if (wgetch(w) == 27) { // escape
